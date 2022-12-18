@@ -1,3 +1,11 @@
+use game_manager::GameManager;
+
+mod game_manager;
+
 fn main() {
-    println!("Hello, world!");
+    let mut game = GameManager::new(10, 20, None);
+
+    game.generate();
+
+    game.show();
 }
