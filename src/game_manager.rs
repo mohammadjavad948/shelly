@@ -125,13 +125,13 @@ impl GameManager {
         }
 
         count += top
-            .into_iter()
+            .iter()
             .map(|(_, el)| el)
             .filter(|el| *el == &Cell::Bomb)
             .count();
 
         count += bot
-            .into_iter()
+            .iter()
             .map(|(_, el)| el)
             .filter(|el| *el == &Cell::Bomb)
             .count();
@@ -150,7 +150,7 @@ impl GameManager {
                 };
             }
 
-            println!("");
+            println!();
         }
     }
 }
