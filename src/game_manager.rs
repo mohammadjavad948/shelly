@@ -117,26 +117,24 @@ impl GameManager {
         let mut count = 0;
 
         if right.1 == Cell::Bomb {
-            count = count + 1;
+            count += 1;
         }
 
         if left.1 == Cell::Bomb {
-            count = count + 1;
+            count += 1;
         }
 
-        count = count
-            + top
-                .into_iter()
-                .map(|(_, el)| el)
-                .filter(|el| *el == &Cell::Bomb)
-                .count();
+        count += top
+            .into_iter()
+            .map(|(_, el)| el)
+            .filter(|el| *el == &Cell::Bomb)
+            .count();
 
-        count = count
-            + bot
-                .into_iter()
-                .map(|(_, el)| el)
-                .filter(|el| *el == &Cell::Bomb)
-                .count();
+        count += bot
+            .into_iter()
+            .map(|(_, el)| el)
+            .filter(|el| *el == &Cell::Bomb)
+            .count();
 
         count
     }
