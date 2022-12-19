@@ -38,21 +38,7 @@ impl GameManager {
             .iter()
             .enumerate()
             .map(|(index, _)| {
-                // two side cols
-                if index % (self.width + 2) == 0 || index % (self.width + 2) == self.width + 1 {
-                    return Cell::Empty;
-                }
-
-                //top row
-                if (0..=(self.width + 1)).contains(&index) {
-                    return Cell::Empty;
-                }
-
-                // bot row
-                if (((self.width + 2) * (self.height + 2) - (self.width + 2))
-                    ..=((self.width + 2) * (self.height + 2) - 1))
-                    .contains(&index)
-                {
+                if self.is_nearby_cell(index) {
                     return Cell::Empty;
                 }
 
@@ -76,20 +62,7 @@ impl GameManager {
             .into_iter()
             .enumerate()
             .map(|(index, el)| {
-                if index % (self.width + 2) == 0 || index % (self.width + 2) == self.width + 1 {
-                    return (true, Cell::Empty);
-                }
-
-                //top row
-                if (0..=(self.width + 1)).contains(&index) {
-                    return (true, Cell::Empty);
-                }
-
-                // bot row
-                if (((self.width + 2) * (self.height + 2) - (self.width + 2))
-                    ..=((self.width + 2) * (self.height + 2) - 1))
-                    .contains(&index)
-                {
+                if self.is_nearby_cell(index) {
                     return (true, Cell::Empty);
                 }
 
@@ -137,6 +110,28 @@ impl GameManager {
             .count();
 
         count
+    }
+
+    fn is_nearby_cell(&self, index: usize) -> bool {
+        // two side cols
+        if index % (self.width + 2) == 0 || index % (self.width + 2) == self.width + 1 {
+            return true;
+        }
+
+        //top row
+        if (0..=(self.width + 1)).contains(&index) {
+            return true;
+        }
+
+        // bot row
+        if (((self.width + 2) * (self.height + 2) - (self.width + 2))
+            ..=((self.width + 2) * (self.height + 2) - 1))
+            .contains(&index)
+        {
+            return true;
+        }
+
+        false
     }
 
     pub fn show(&self) {
