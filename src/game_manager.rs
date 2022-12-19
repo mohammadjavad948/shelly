@@ -38,7 +38,7 @@ impl GameManager {
             .iter()
             .enumerate()
             .map(|(index, _)| {
-                if self.is_nearby_cell(index) {
+                if self.is_edge_cell(index) {
                     return Cell::Empty;
                 }
 
@@ -62,7 +62,7 @@ impl GameManager {
             .into_iter()
             .enumerate()
             .map(|(index, el)| {
-                if self.is_nearby_cell(index) {
+                if self.is_edge_cell(index) {
                     return (true, Cell::Empty);
                 }
 
@@ -112,7 +112,7 @@ impl GameManager {
         count
     }
 
-    fn is_nearby_cell(&self, index: usize) -> bool {
+    fn is_edge_cell(&self, index: usize) -> bool {
         // two side cols
         if index % (self.width + 2) == 0 || index % (self.width + 2) == self.width + 1 {
             return true;
