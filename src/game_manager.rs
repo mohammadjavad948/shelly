@@ -82,6 +82,17 @@ impl GameManager {
         self.cells = cells;
     }
 
+    pub fn reveal(&mut self, index: usize) {
+        let mut cells = self.cells.clone();
+
+        let mut cell = cells.get(index).unwrap().clone();
+        cell.0 = true;
+
+        cells[index] = cell;
+
+        self.cells = cells;
+    }
+
     fn cell_count_bomb_around(&self, index: usize) -> Option<usize> {
         // if we get a negative index then return zero
         let index_check = index.checked_sub(self.width + 3);

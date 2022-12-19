@@ -8,4 +8,10 @@ fn main() {
     game.generate();
 
     game.show();
+
+    game.reveal(33);
+
+    println!("----------------------------");
+
+    game.show();
 }
