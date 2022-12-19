@@ -72,8 +72,9 @@ impl GameManager {
 
                 let count = self.cell_count_bomb_around(index);
                 match count {
-                    0 => el,
-                    other => (false, Cell::NearBomb(other)),
+                    Some(0) => el,
+                    Some(other) => (false, Cell::NearBomb(other)),
+                    None => (false, Cell::Empty),
                 }
             })
             .collect();
@@ -81,9 +82,17 @@ impl GameManager {
         self.cells = cells;
     }
 
-    fn cell_count_bomb_around(&self, index: usize) -> usize {
+    fn cell_count_bomb_around(&self, index: usize) -> Option<usize> {
+        // if we get a negative index then return zero
+        let index_check = index.checked_sub(self.width + 3);
+
+        if index_check == None {
+            return None;
+        }
+
         let right = self.cells.get(index + 1).unwrap_or(&(true, Cell::Empty));
         let left = self.cells.get(index - 1).unwrap_or(&(true, Cell::Empty));
+
         let top = &self.cells[(index - (self.width + 3))..=(index - (self.width + 1))];
         let bot = &self.cells[(index + (self.width + 1))..=(index + (self.width + 3))];
 
@@ -109,7 +118,7 @@ impl GameManager {
             .filter(|el| *el == &Cell::Bomb)
             .count();
 
-        count
+        Some(count)
     }
 
     fn is_edge_cell(&self, index: usize) -> bool {
