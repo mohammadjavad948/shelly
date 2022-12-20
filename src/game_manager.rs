@@ -158,10 +158,10 @@ impl GameManager {
         for chunk in self.cells.chunks(self.width + 2) {
             for c in chunk {
                 match c {
-                    (false, _) => print!("   *   "),
-                    (_, Cell::Bomb) => print!(" {:#?}  ", c.1),
-                    (_, Cell::Empty) => print!(" {:#?} ", c.1),
-                    (_, Cell::NearBomb(count)) => print!("   {}   ", count),
+                    (false, _) => print!(" * "),
+                    (_, Cell::Bomb) => print!(" B "),
+                    (_, Cell::Empty) => print!("   "),
+                    (_, Cell::NearBomb(count)) => print!(" {} ", count),
                 };
             }
 
