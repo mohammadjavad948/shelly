@@ -1,14 +1,15 @@
 use rand::{Rng, SeedableRng};
 
+#[derive(Clone)]
 pub struct GameManager {
-    width: usize,
+    pub width: usize,
     height: usize,
     seed: Option<u64>,
-    cells: Vec<(bool, Cell)>,
+    pub cells: Vec<(bool, Cell)>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
-enum Cell {
+pub enum Cell {
     Empty,
     Bomb,
     NearBomb(usize),
@@ -82,15 +83,17 @@ impl GameManager {
         self.cells = cells;
     }
 
-    pub fn reveal(&mut self, index: usize) {
+    pub fn reveal(&mut self, index: usize) -> (bool, Cell) {
         let mut cells = self.cells.clone();
 
         let mut cell = cells.get(index).unwrap().clone();
         cell.0 = true;
 
-        cells[index] = cell;
+        cells[index] = cell.clone();
 
         self.cells = cells;
+
+        cell
     }
 
     fn cell_count_bomb_around(&self, index: usize) -> Option<usize> {
