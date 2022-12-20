@@ -155,6 +155,12 @@ impl GameManager {
     }
 
     pub fn show(&self) {
+        for _index in 0..self.width + 2 {
+            print!(" | ");
+        }
+
+        println!();
+
         for chunk in self.cells.chunks(self.width + 2) {
             for c in chunk {
                 match c {
@@ -165,7 +171,7 @@ impl GameManager {
                 };
             }
 
-            println!();
+            println!("  --");
         }
     }
 }
